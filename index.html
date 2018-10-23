@@ -1,0 +1,781 @@
+<!doctype html>
+<html>
+<head>
+<title>plane app</title>
+<style id="ss0">
+
+body {
+    background-color: #888;
+    overflow: hidden;
+}
+
+.infoItem {
+    fill: #888;
+    stroke-width: 0;
+    fill-rule: evenodd;
+    transition: fill linear 0.3s;
+}
+
+.infoItem:hover{
+    fill: #fff;
+    transition: fill linear 0.3s;
+}
+
+.outline {
+    stroke-width: 1;
+    stroke: #222;
+    fill: none;
+}
+
+#verticalStabilizer {
+    fill: #222;
+    transition: fill linear 0.3s;
+}
+
+#verticalStabilizer:hover {
+    fill: #fff;
+    transition: fill linear 0.3s;
+}
+
+#wrap {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 650px;
+    height: 650px;
+    border: 1px solid #000;
+    border-radius: 0px 20px 0px 20px;
+    overflow: visible;
+}
+
+svg {
+    position: relative;
+    overflow: hidden;
+    transform-origin: 280px 50%;
+}
+
+#notes {
+    position: absolute;
+    height: 120px;
+    width: 0px;
+    font-family: 'courier new';
+    font-size: 12px;
+    text-align: left;
+    color: #222;
+    border: 6px solid #222;
+    border-radius: 0px 20px 0px 20px;
+    background-color: #888;
+    top: 0px;
+    right: 0px;
+    padding: 5px;
+    overflow: hidden;
+    transition: all linear 0.3s;
+}
+
+#menuArea {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 120px;
+    width: 125px;
+    overflow: visible;
+}
+
+#menuArea:hover .colorPicker {
+    width: 180px;
+}
+
+#backDot {
+    background-color: #888;
+    border: 1px solid #000;
+    border-radius: 0px 10px 0px 10px;
+    left: -1px;
+    top: -1px;
+    transition: all linear 0.3s,
+                background-color 0s;
+}
+
+.colorPicker {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 35px;
+    width: 0px;
+    overflow: visible;
+    transition: all linear 0.3s,
+                background-color 0s;
+    
+}
+
+.colorPicker .colorButt {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    transform: rotate(0deg);
+    overflow: hidden;
+    transition: all linear 0.3s,
+                background-color 0s;
+}
+
+.colorPicker:hover .colorButt {
+    border-radius: 0px;
+    transform: rotate(315deg);
+    transition: all linear 0.3s,
+                background-color 0s;
+}
+
+.colorPicker .colorBar {
+    position: absolute;
+    left: 35px;
+    width: 0px;
+    height: 35px;
+    outline: none;
+    overflow: hidden;
+    line-height: 35px;
+    font-size: 20px;
+    text-align: center;
+    transition: width linear 0.3s;
+}
+
+.colorPicker:hover .colorBar {
+    width: 140px;
+    transition: width linear 0.3s;
+}
+
+</style>
+</head>
+<body>
+    
+<div id="wrap">
+        
+    <svg id="f69SVG" height="650px" width="650px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+        <g id="f69" transform="scale(6.5, 6.5) translate(2, 2)">
+
+            <path id="wingBody" class="infoItem" d="
+M 30 52 V 70 L 5 75 V 80 A 31 21 0 0 1 0 71 Z
+M 50 52 V 70 L 75 75 V 80 A 31 21 1 0 0 80 71 Z
+            "/>
+            
+            <path id="slats" class="infoItem" d="
+M 30 50 V 52 L 0 71 A 31 21 0 0 1 0 70 Z
+M 50 50 V 52 L 80 71 A 31 21 1 0 0 80 70 Z
+            "/>
+            
+            <path id="innerElevon" class="infoItem" d="
+M 30 70 V 80 H 17.5 V 72.5 Z
+M 50 70 V 80 H 62.5 V 72.5 Z
+            "/>
+        
+            <path id="outerElevon" class="infoItem" d="
+M 5 80 V 75 L 17.5 72.5 V 80 Z
+M 75 80 V 75 L 62.5 72.5 V 80 Z
+            "/>
+            
+            <path id="intake" class="infoItem" d="
+M 35 85 A 100 100 0 0 1 36 65 A 280 160 1 0 0 36 50
+A 300 300 0 0 1 35 31.7 L 30 35 V 80 Z
+
+M 45 31.7 A 300 300 0 0 1 44 50 A 280 160 1 0 0 44 65
+A 100 100 0 0 1 45 85 L 50 80 V 35 Z
+
+M 31 40 V 42 L 34 40 V 38
+M 49 40 V 42 L 46 40 V 38
+M 31 75.5 V 78 L 34 81 V 78.5
+M 49 75.5 V 78 L 46 81 V 78.5
+            "/>
+            
+            <path id="fuselage" class="infoItem" d="
+M 35 15
+A 30 30 0 0 1 40 0
+A 30 30 0 0 1 45 15
+V 28
+A 300 300 0 0 1 44 50
+A 280 160 1 0 0 44 65
+A 100 100 0 0 1 45 85
+A 30 30 0 0 1 35 85
+A 100 100 0 0 1 36 65
+A 280 160 1 0 0 36 50
+A 300 300 0 0 1 35 28
+Z
+
+M 36 15 A 12 12 0 0 1 40 10 A 12 12 0 0 1 44 15 L 42.5 25 A 10 10 0 0 1 37.5 25 Z
+    
+            "/>
+            
+            <path id="canopy" class="infoItem" d="
+M 36 15 A 12 12 0 0 1 40 10 A 12 12 0 0 1 44 15 L 42.5 25 A 10 10 0 0 1 37.5 25 Z
+            "/>
+        
+            <path id="exhaust" class="infoItem" d="
+M 45 85 A 20 20 0 0 1 43.25 90 A 20 20 0 0 1 36.75 90 A 20 20 0 0 1 35 85 A 30 30 1 0 0 45 85 Z
+            "/>
+    
+            <path id="thrustPort" class="infoItem" d="
+M 31 40 V 42 L 34 40 V 38 Z
+M 49 40 V 42 L 46 40 V 38 Z
+M 31 75.5 V 78 L 34 81 V 78.5 Z
+M 49 75.5 V 78 L 46 81 V 78.5 Z
+            "/>
+            
+            <g id="allOutlines">
+            
+                <path id="xparentOutline" class="outline" style="stroke-width:0.25;stroke-opacity:0.3" d="
+M 31 40 V 42 L 34 40 V 38 Z
+M 49 40 V 42 L 46 40 V 38 Z
+M 31 75.5 V 78 L 34 81 V 78.5 Z
+M 49 75.5 V 78 L 46 81 V 78.5 Z
+                "/>
+            
+                <path id="canopyOutline" class="outline" style="stroke-width:0.75" d="
+M 36 15 A 12 12 0 0 1 40 10 A 12 12 0 0 1 44 15 L 42.5 25 A 10 10 0 0 1 37.5 25 Z
+                "/>
+            
+                <path id="regularOutline" class="outline" d="
+                
+M 30 50 V 80 H 5 A 31 21 0 0 1 0 70 Z
+M 50 50 V 80 H 75 A 30 21 1 0 0 80 70 Z
+
+M 45 85 A 20 20 0 0 1 43.25 90 A 20 20 0 0 1 36.75 90 A 20 20 0 0 1 35 85 A 30 30 1 0 0 45 85 Z
+
+M 35 15
+A 30 30 0 0 1 40 0
+A 30 30 0 0 1 45 15
+V 28
+A 300 300 0 0 1 44 50
+A 280 160 1 0 0 44 65
+A 100 100 0 0 1 45 85
+A 30 30 0 0 1 35 85
+A 100 100 0 0 1 36 65
+A 280 160 1 0 0 36 50
+A 300 300 0 0 1 35 28
+Z
+
+M 45 31.7 L 50 35 V 80 L 45 85
+M 35 85 L 30 80 V 35 L 35 31.7
+    
+                "/>
+            
+                <path id="thinOutline" class="outline" style="stroke-width:0.25" d="
+M 30 52 L 0 71 Z
+M 50 52 L 80 71 Z
+    
+M 30 70 L 5 75 V 80
+M 50 70 L 75 75 V 80
+M 17.5 80 V 72.5
+M 62.5 80 V 72.5
+
+M 36 15 A 4.5 4.5 1 0 0 44 15
+                "/>
+            </g>
+            
+            <path id="verticalStabilizer" d="
+M 39 75 A 10 10 0 0 1 40 70 A 10 10 0 0 1 41 75 L 40 97 Z
+            "/>
+            
+        </g>
+    </svg>
+
+    <div id="notes"></div>
+
+    <label id="menuArea" for="backButt">
+            
+        <div id="fillButt" class="colorPicker">
+            <div id="fillBar" class="colorBar" contentEditable="false"></div>
+            <div id="fillDot" class="colorButt"></div>
+        </div>
+        
+        <div id="strokeButt" class="colorPicker">
+            <div id="strokeBar" class="colorBar" contentEditable="false"></div>
+            <div id="strokeDot" class="colorButt"></div>
+        </div>
+        
+        <div id="hoverButt" class="colorPicker">
+            <div id="hoverBar" class="colorBar" contentEditable="false"></div>
+            <div id="hoverDot" class="colorButt"></div>
+        </div>
+        
+        <div id="backButt" class="colorPicker">
+            <div id="backDot" class="colorButt" contentEditable="false"></div>
+        </div>
+        
+    
+    </label>
+    
+</div>
+
+<script src="nosepicker.js" data-types=".nosepicker, .colorBar, #backDot"></script>
+
+<script>
+////////////////////////////////////////////////////////////////////////////////
+// pizzaface - enero MMXVII
+//
+//  = preferences menu
+//    = set body color
+//    = set fill color
+//    = set outline color
+//    = set hilite color
+//    = set background color
+//  = save|restore localStorage prefs
+//    = saves on prefs menu close
+//    = restore to default preferences
+//  = expiration date
+//
+////////////////////////////////////////////////////////////////////////////////
+
+    
+// debugg - reset local storage
+//window.localStorage.clear();
+
+(() => { // anonymouse closure
+
+
+    // if the app is expired ...
+    if( new Date('October 13 2023').getTime() - new Date().getTime() < 0 ){
+        
+        // alert the user
+        document.body.innerHTML = 'eXp!r3D';
+        
+        // just skip out of the app
+        return;
+        
+    }
+    
+
+    //////////////////////////////////////////////////
+    // useful constants
+    const rat = 'master',
+    
+    // app info
+    appName =  'Plane_App',
+    appTitle = 'plane app',
+    
+    transDur = '0.3s',
+    
+    // list of all item id's and accompaning text
+    menuList = [
+        [
+            'fuselage', 'FUSELAGE',
+            'a tube by a fancier name; everything sounds fancier ' +
+            'when you call it something french'
+        ],
+        [
+            'wingBody', 'WING',
+            'cambered airfoil holds fuel, baggage, and complaint box - ' +
+            'as well as passenger hopes and dreams'
+        ],
+        [
+            'canopy', 'CANOPY',
+            'usually a tin contaier with delicious peas inside'
+        ],
+        [
+            'intake', 'INTAKE',
+            'the moment at a party during which one begins consuming ' +
+            'alcohol or other toxic substances'
+        ],
+        [
+            'slats', 'SLATS',
+            'mechanism by which the leading-edge of the wing can be ' +
+            'extended or contracted to alter the camber of the airfoil'
+
+        ],
+        [
+            'thrustPort', 'VECTORED THRUST PORTS',
+            'upper ventilation helps maintain stable downward flow during ' +
+            'vectored flight maneuvers'
+        ],
+        [
+            'verticalStabilizer', 'RUDDER',
+            'vertical stabilizer capable of unneccessarily controlling yaw; ' +
+            'multiple elevons combined with millions of adjustments per second ' +
+            'and vectored thrust make vertical stablization and yaw control redundant'
+        ],
+        [
+            'exhaust', 'EXHAUST',
+            'seven hundred million pounds of thrust per square centimeter ' +
+            'allows the craft to travel much faster than the speed of light ' +
+            'and far enough back in time to prevent its own creation'
+        ],
+        [
+            'outerElevon', 'DISTAL ELEVON',
+            'combined elevator and aileron flight control surface'
+        ],
+        [
+            'innerElevon', 'PROXIMAL ELEVON',
+            'combined elevator and aileron for flight control'
+        ]
+
+    ],
+    
+    // for references to all ids
+    Q = {},
+    
+    // hashtable lookup for overwriting the stylesheet
+    cssHash = {},
+    ss0 = document.getElementById('ss0').sheet.rules,
+    
+    // default preferences for restoration
+    defPrefs = {
+            
+            fillColor: '#ea0',
+            strokeColor: '#c60',
+            hoverColor: '#900',
+            backColor: '#888',
+            
+            zlev: 1
+            
+    };
+    
+    // preferences to be populated from defaults or storage
+    var prefs = {};
+    
+    // method to store prefs locally
+    const storePrefs = () => {
+        window.localStorage.setItem(appName, JSON.stringify(prefs));
+    },
+    
+    // method to reset all preferences to defaults
+    resetDefaultPreferences = () => {
+        
+        // blank the prefs
+        prefs = {};
+
+        // change all operating preferences back to default
+        for (var i in defPrefs) {
+            // parse this so it's not a pointer
+            prefs[i] = JSON.parse(JSON.stringify(defPrefs[i]));
+        }
+
+        // store the defaults as the local preferences
+        storePrefs();
+            
+    },
+    
+    setUpFromPreferences = () => {
+        
+        // color the background and text colors
+        document.body.style.backgroundColor = prefs.backColor;
+            
+        // set the back color and editor
+        Q.backDot.style.backgroundColor = prefs.backColor;
+        Q.backDot.setValue(prefs.backColor);
+        
+        // set all color selector colors
+        'fill stroke hover'.split(' ').forEach( obj => {
+        
+            let dot = Q[obj + 'Dot'],
+                bar = Q[obj + 'Bar'];
+                
+            bar.setValue(prefs[obj + 'Color']);
+            dot.oldValue = bar.value;
+            dot.style.backgroundColor = bar.value;
+            adjustor[obj](bar.value);
+    
+        });
+        
+        // zoom to apropos level
+        Q.f69SVG.style.transform = 'scale(' + prefs.zlev + ',' + prefs.zlev + ')';
+        
+    },
+        
+    // method for animating notations
+    noteMaker = new function() {
+
+        // bind this create vars and loop thread var
+        let nm = this,
+            msg, charCount = 0,
+            isLooping = false;
+
+        // the animation function
+        nm.anim = () => {
+
+            // if it still needs to run
+            if (charCount < msg.length) {
+
+                Q.notes.innerHTML += msg[charCount++];
+                isLooping = setTimeout(function() {
+                    nm.anim();
+                }, ~~(Math.random() * 180 + 20));
+
+            }
+            // otherwise stop the loop
+            else {
+
+                clearTimeout(isLooping);
+                isLooping = false;
+
+            }
+
+        }
+
+        nm.start = vals => {
+            
+            clearTimeout(isLooping);
+            charCount = 0;
+            msg = vals.text.split('');
+            Q.notes.innerHTML = '<b>' + vals.title + '</b>:<br>';
+            nm.anim();
+
+        };
+
+        nm.stop = () => {
+
+            Q.notes.innerHTML = '';
+            clearTimeout(isLooping);
+            isLooping = false;
+
+        };
+
+    }(),
+    
+    // listener for wheel to zoom in|out
+    wheelZoom = e => {
+
+        let zlev = prefs.zlev;
+        
+        zlev += e.wheelDeltaY / 1000;
+        zlev = zlev > 4 ? 4 : zlev < 0.05 ? 0.05 : zlev;
+        let tmpZ = (zlev > 0.97 && zlev < 1.1) ? 1 : zlev;
+        Q.f69SVG.style.transform = 'scale(' + tmpZ + ',' + tmpZ + ')';
+        e.preventDefault();
+        
+        // remember and store zoom in prefs
+        prefs.zlev = tmpZ;
+
+    },
+   
+    // method to expand menu area
+    menuOverFunc = e => {
+
+        // position all the selectors
+        Q.strokeButt.style.top = '28px';
+        Q.hoverButt.style.top = '56px';
+        Q.backButt.style.top = '84px';
+        Q.backDot.style.borderRadius = '50%';
+
+        // add|remove listeners
+        Q.menuArea.addEventListener('mouseout', menuOutFunc, false);
+        Q.menuArea.removeEventListener('mouseover', menuOverFunc, false);
+        Q.wrap.removeEventListener('wheel', wheelZoom, false);
+        
+        // make fills happen instantly when editing colors
+        cssHash['.infoItem'].style.transition = 'fill linear 0s';
+        cssHash['#verticalStabilizer'].style.transition = 'fill linear 0s';
+
+    },
+
+    // method for collapsing menu area
+    menuOutFunc = e => {
+
+        // tuck all the slectors away
+        Q.strokeButt.style.top = '1px';
+        Q.hoverButt.style.top = '1px';
+        Q.backButt.style.top = '2px';
+        Q.backDot.style.borderRadius = '0px 10px 0px 10px';
+
+        // remove|add listeners
+        Q.menuArea.addEventListener('mouseover', menuOverFunc, false);
+        Q.menuArea.removeEventListener('mouseout', menuOutFunc, false);
+        Q.wrap.addEventListener('wheel', wheelZoom, false);
+
+        // return the fill transitions to
+        cssHash['.infoItem'].style.transition = 'fill linear '+ transDur;
+        cssHash['#verticalStabilizer'].style.transition = 'fill linear ' + transDur;
+        
+    },
+
+    // color adjustment listener
+    adjustor = {
+        
+        'fill' : v => {
+        
+            cssHash['.infoItem'].style.fill = v;
+            Q.notes.style.backgroundColor = v;
+        
+        },
+        
+        'stroke' : v => {
+            cssHash['.outline'].style.stroke = v;
+            cssHash['#verticalStabilizer'].style.fill = v;
+            Q.notes.style.borderColor = v;
+            Q.notes.style.color = v;
+        },
+        
+        'hover' : v => {
+            cssHash['.infoItem:hover'].style.fill = v;
+            cssHash['#verticalStabilizer:hover'].style.fill = v;
+        },
+        
+        'back' : v => {
+            document.body.style.backgroundColor = v;
+        }
+            
+    };
+    
+    
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    
+    InPrincipioErataVerbum = (() => {
+    
+        //////////////////////////////////////////////////
+        // prep the app
+        
+        // change the title
+        document.title = appTitle;
+        
+        // get references to all id's
+        (
+            'wrap f69SVG f69 wingBody slats ' +
+            'innerElevon outerElevon intake ' +
+            'fuselage canopy exhaust ' +
+            'verticalStabilizer thrustPort ' +
+            'notes menuArea ' +
+            'fillButt fillBar fillDot ' +
+            'strokeButt strokeBar strokeDot ' +
+            'hoverButt hoverBar hoverDot ' +
+            'backButt backDot'
+    
+        ).split(' ').forEach(obj => {
+            Q[obj] = document.getElementById(obj);
+        });
+    
+        // populate the css hashtable
+        for (let i in ss0) {
+            cssHash[ss0[i].selectorText] = ss0[i];
+        }
+    
+        // either read prefs from local storage, or use defaults and set local
+        if (window.localStorage[appName]) {
+            prefs = JSON.parse(window.localStorage[appName]);
+        }
+        else {
+            resetDefaultPreferences();
+        }
+        
+        // set everything based on prefs
+        setUpFromPreferences();
+        
+        //////////////////////////////////////////////////
+        // add listeners
+    
+        // expand notes area when hovering on plane
+        Q.f69.addEventListener('mouseover', e => {
+
+            Q.notes.style.width = '250px';
+
+        }, false);
+        
+        // collapse notes when mouse not over plane
+        Q.f69.addEventListener('mouseout', e => {
+
+            noteMaker.stop();
+            Q.notes.style.width = '0px';
+
+        }, false);
+
+        // put mouseover listeners on all menulist items
+        menuList.forEach( obj => {
+
+            document.getElementById(obj[0]).addEventListener('mouseover', e => {
+
+                // display the note for this part
+                noteMaker.start({ title: obj[1], text: obj[2] });
+
+            }, false);
+
+        });
+        
+        // expand menu area when mouse nearby
+        Q.menuArea.addEventListener('mouseover', menuOverFunc, false);
+        
+        // change background color on back dot input
+        Q.backDot.addEventListener('input', e => {
+            
+            adjustor.back(Q.backDot.value);
+            prefs.backColor = Q.backDot.value;
+        
+        }, false);
+            
+        // reset to defaults when background butt is double-clicked
+        Q.backDot.addEventListener('dblclick', e => {
+            
+            resetDefaultPreferences();
+            setUpFromPreferences();
+            // double click selects note text, so de-select
+            window.getSelection().removeAllRanges();
+            
+        }, false);
+        
+        // put all the listeners on the color selectors
+        'fill stroke hover'.split(' ').forEach( obj => {
+        
+            let dot = Q[obj + 'Dot'],
+                bar = Q[obj + 'Bar'],
+                col = obj + 'Color';
+                
+            // display the color on input
+            bar.addEventListener('input', e => {
+                adjustor[obj](bar.value);
+            });
+                
+            // set and save the color on change
+            bar.addEventListener('change', e => {
+                dot.oldValue = bar.value;
+                dot.style.backgroundColor = ('hsl(' +
+                    bar.vals.h + ',' +
+                    bar.vals.s + '%,' +
+                    bar.vals.l + '%)'
+                );
+                adjustor[obj](bar.value);
+                prefs[col] = bar.value;
+            });
+        
+            // reset|undo if dot is clicked
+            dot.addEventListener('click', e => {
+                bar.setValue(dot.oldValue);
+                adjustor[obj](bar.value);
+                prefs[col] = bar.value;
+            });
+        
+        
+            // reset|undo if color not selected on close
+            bar.addEventListener('transitionend', e => {
+                if (
+                    e.propertyName === 'width' &&
+                    getComputedStyle(bar).width === '0px' &&
+                    bar.value !== dot.oldValue
+                ) {
+                    bar.setValue(dot.oldValue);
+                    adjustor[obj](bar.value);
+                    prefs[col] = bar.value;
+                }
+            });
+    
+        });
+    
+        // zoom in|out on scroll wheel
+        Q.wrap.addEventListener('wheel', wheelZoom, false);
+        
+        // save state when the page closes
+        window.addEventListener('beforeunload', function(e) {
+    
+            storePrefs();
+    
+        }, false);
+        
+    })();
+            
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+
+})(); // selfie on the moon!
+
+
+</script>
+</body>
+</html>
